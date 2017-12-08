@@ -7,10 +7,6 @@ One Wire Digital Temperature Sensor - DS18B20 https://www.sparkfun.com/products/
 40 AMP solid state relay
 2.8" TFT touch Screen https://www.adafruit.com/product/1651?gclid=EAIaIQobChMIypPA7rv71wIV2YuzCh15fwnkEAQYAiABEgJrGvD_BwE
 
-This program creates a controller using an arduino, shields, sensors and a solid state relay. 
-The program allows generates a user interface on the TFT touch screen that displays the current 
-temperature, temperature setpoint and has buttons for increaseing and decreasing the temperature setpoint. 
-The program monitors the setpoint and the current temp when the values match output pin2 is set high which will 
-toggle the SSR controlled to an electric 240V relay coil. 
+This program creates a controller using an arduino, shields, sensors and a solid state relay. The program generates a user interface on the TFT touch screen that displays the current temperature, temperature setpoint and has button to increase and decrease the temperature setpoint. The program monitors the setpoint and the current temp when the values match. Output pin2 is set high which will toggle the SSR controlled to an electric 240V heater coil in the brew kettle. 
 
 
