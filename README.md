@@ -1,6 +1,5 @@
-# Wort-Thermometer
-Simple wort temperature controllerOne Wire Digital Temperature Sensor - DS18B20  using arduino
-
+# BrewingTemp
+Simple wort temperature controller 1-Wire Digital Temperature Sensor - DS18B20
 Parts list: 
 Arduino Uno https://www.amazon.com/Arduino-Uno-R3-Microcontroller-A000066/dp/B008GRTSV6
 One Wire Digital Temperature Sensor - DS18B20 https://www.sparkfun.com/products/245
