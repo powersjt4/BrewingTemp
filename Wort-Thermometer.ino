@@ -12,12 +12,12 @@
 
 
 #if defined(__SAM3X8E__)
-    #undef __FlashStringHelper::F(string_literal)
-    #define F(string_literal) string_literal
+#undef __FlashStringHelper::F(string_literal)
+#define F(string_literal) string_literal
 #endif
 
-#ifndef USE_ADAFRUIT_SHIELD_PINOUT 
- #error "This sketch is intended for use with the TFT LCD Shield. Make sure that USE_ADAFRUIT_SHIELD_PINOUT is #defined in the Adafruit_TFTLCD.h library file."
+#ifndef USE_ADAFRUIT_SHIELD_PINOUT
+#error "This sketch is intended for use with the TFT LCD Shield. Make sure that USE_ADAFRUIT_SHIELD_PINOUT is #defined in the Adafruit_TFTLCD.h library file."
 #endif
 
 // The control pins for the LCD can be assigned to any digital or
@@ -67,132 +67,132 @@ float tempC;
 int oldSet;
 TouchScreen ts = TouchScreen(XP, YP, XM, YM, 300);
 
-  uint16_t identifier = tft.readID();
+uint16_t identifier = tft.readID();
 
 
 void setup() {
-  Serial.begin(9600);
-  sensors.begin();
-  pinMode (relayPin, OUTPUT);
+	Serial.begin(9600);
+	sensors.begin();
+	pinMode (relayPin, OUTPUT);
 
-  Serial.println(F("TFT LCD test"));
+	Serial.println(F("TFT LCD test"));
 
 #ifdef USE_ADAFRUIT_SHIELD_PINOUT
-  Serial.println(F("Using Adafruit 2.8\" TFT Arduino Shield Pinout"));
+	Serial.println(F("Using Adafruit 2.8\" TFT Arduino Shield Pinout"));
 #else
-  Serial.println(F("Using Adafruit 2.8\" TFT Breakout Board Pinout"));
+	Serial.println(F("Using Adafruit 2.8\" TFT Breakout Board Pinout"));
 #endif
 
-  Serial.print("TFT size is "); Serial.print(tft.width()); Serial.print("x"); Serial.println(tft.height());
+	Serial.print("TFT size is "); Serial.print(tft.width()); Serial.print("x"); Serial.println(tft.height());
 
-  uint16_t identifier = tft.readID();
-  sensors.setResolution(brewTherm, 10);
-  tft.begin(identifier);
-  testFillScreen();
-  tft.fillRect(0, 200, 400, 60,YELLOW);
-  tft.fillRect(0, 260, 400, 60,BLUE);
+	uint16_t identifier = tft.readID();
+	sensors.setResolution(brewTherm, 10);
+	tft.begin(identifier);
+	testFillScreen();
+	tft.fillRect(0, 200, 400, 60, YELLOW);
+	tft.fillRect(0, 260, 400, 60, BLUE);
 
 }
 
 void loop() {
 
-  // if sharing pins, you'll need to fix the directions of the touchscreen pins
-  //pinMode(XP, OUTPUT);
-  pinMode(XM, OUTPUT);
-  pinMode(YP, OUTPUT);
-  //pinMode(YM, OUTPUT);
-  
-  sensors.requestTemperatures();
-  printTemperature(brewTherm);
-  if(setTemp != oldSet){
-  tft.fillRect(0, 40, 400, 40,BLACK);
-  tft.setCursor(0, 40);
-  tft.setTextSize(5); tft.setTextColor(YELLOW);
-  tft.println(setTemp);
-  }
-  //delay(250); 
-  
-  Serial.print("\n\r");
-  digitalWrite (relayPin, LOW);
-  Serial.print("*******************************************\n\r");
-  relayControl(brewTherm);
-  tft.setTextColor(YELLOW); tft.setTextSize(5);
-  tft.setCursor(0, 20);
-  Serial.println(setTemp);
-  
+	// if sharing pins, you'll need to fix the directions of the touchscreen pins
+	//pinMode(XP, OUTPUT);
+	pinMode(XM, OUTPUT);
+	pinMode(YP, OUTPUT);
+	//pinMode(YM, OUTPUT);
 
-  setTemperature();
+	sensors.requestTemperatures();
+	printTemperature(brewTherm);
+	if (setTemp != oldSet) {
+		tft.fillRect(0, 40, 400, 40, BLACK);
+		tft.setCursor(0, 40);
+		tft.setTextSize(5); tft.setTextColor(YELLOW);
+		tft.println(setTemp);
+	}
+	//delay(250);
+
+	Serial.print("\n\r");
+	digitalWrite (relayPin, LOW);
+	Serial.print("*******************************************\n\r");
+	relayControl(brewTherm);
+	tft.setTextColor(YELLOW); tft.setTextSize(5);
+	tft.setCursor(0, 20);
+	Serial.println(setTemp);
+
+
+	setTemperature();
 
 }
 
 unsigned long testFillScreen() {
-  unsigned long start = micros();
-  tft.fillScreen(BLACK);
-  tft.fillScreen(RED);
-  tft.fillScreen(GREEN);
-  tft.fillScreen(BLUE);
-  tft.fillScreen(BLACK);
-  return micros() - start;
+	unsigned long start = micros();
+	tft.fillScreen(BLACK);
+	tft.fillScreen(RED);
+	tft.fillScreen(GREEN);
+	tft.fillScreen(BLUE);
+	tft.fillScreen(BLACK);
+	return micros() - start;
 }
 
 void printTemperature(DeviceAddress deviceAddress)
 {
-  float tempOld = tempC;
-  float tempC = sensors.getTempC(deviceAddress);
-  if (tempC == -127.00) {
-    Serial.print("Error getting temperature");
-  } else {
-    Serial.print("C: ");
-    Serial.print(tempC);
-    Serial.print(" F: ");
-    Serial.print(DallasTemperature::toFahrenheit(tempC));
-    if(tempOld != tempC){
-    tft.fillRect(0, 0, 400, 40,BLACK);
-    tft.setCursor(0, 0);
-    tft.setTextSize(5); tft.setTextColor(GREEN);
-    tft.println(DallasTemperature::toFahrenheit(tempC));
-    }
-  }
+	float tempOld = tempC;
+	float tempC = sensors.getTempC(deviceAddress);
+	if (tempC == -127.00) {
+		Serial.print("Error getting temperature");
+	} else {
+		Serial.print("C: ");
+		Serial.print(tempC);
+		Serial.print(" F: ");
+		Serial.print(DallasTemperature::toFahrenheit(tempC));
+		if (tempOld != tempC) {
+			tft.fillRect(0, 0, 400, 40, BLACK);
+			tft.setCursor(0, 0);
+			tft.setTextSize(5); tft.setTextColor(GREEN);
+			tft.println(DallasTemperature::toFahrenheit(tempC));
+		}
+	}
 }
 
 
 void relayControl(DeviceAddress deviceAddress)
 {
 
-  tempC = sensors.getTempC(deviceAddress);
-  if (tempC == -127.00) {
-    Serial.print("Error getting temperature");
-  } else {
-  tempF = (DallasTemperature::toFahrenheit(tempC));
-  if(tempF<setTemp )
-  { 
-  //delay (250);
-  digitalWrite (relayPin, HIGH);
-  Serial.println("Relay is on\n\r");
-  }else{
-  //delay(250);
-  digitalWrite (relayPin, LOW);
-  Serial.println("Relay is off\n\r");  
-  }
-    }
+	tempC = sensors.getTempC(deviceAddress);
+	if (tempC == -127.00) {
+		Serial.print("Error getting temperature");
+	} else {
+		tempF = (DallasTemperature::toFahrenheit(tempC));
+		if (tempF < setTemp )
+		{
+			//delay (250);
+			digitalWrite (relayPin, HIGH);
+			Serial.println("Relay is on\n\r");
+		} else {
+			//delay(250);
+			digitalWrite (relayPin, LOW);
+			Serial.println("Relay is off\n\r");
+		}
+	}
 }
 
 void setTemperature()
-{   oldSet=setTemp;
-    TSPoint p = ts.getPoint();
-    if (p.z > MINPRESSURE && p.z < MAXPRESSURE) {
-    Serial.print("X = "); Serial.print(p.x);
-    Serial.print("\tY = "); Serial.print(p.y);
-    Serial.print("\tPressure = "); Serial.println(p.z);
-  }
-  if(p.y > 260 && p.y>=200 && p.z>0){
-    setTemp++;
-  }else if (p.y<260 && p.z>0){
-   setTemp--;
- }else{
-  p.y=0;  
- }
-   Serial.println(" This is tempF: ");Serial.print(tempF); Serial.print("\n\r");Serial.println("This is setTemp: " ); Serial.print(setTemp);Serial.print("\n\r");;
+{ oldSet = setTemp;
+	TSPoint p = ts.getPoint();
+	if (p.z > MINPRESSURE && p.z < MAXPRESSURE) {
+		Serial.print("X = "); Serial.print(p.x);
+		Serial.print("\tY = "); Serial.print(p.y);
+		Serial.print("\tPressure = "); Serial.println(p.z);
+	}
+	if (p.y > 260 && p.y >= 200 && p.z > 0) {
+		setTemp++;
+	} else if (p.y < 260 && p.z > 0) {
+		setTemp--;
+	} else {
+		p.y = 0;
+	}
+	Serial.println(" This is tempF: "); Serial.print(tempF); Serial.print("\n\r"); Serial.println("This is setTemp: " ); Serial.print(setTemp); Serial.print("\n\r");;
 }
 
 
