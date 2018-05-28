@@ -74,7 +74,6 @@ void setup() {
 	Serial.begin(9600);
 	sensors.begin();
 	pinMode (relayPin, OUTPUT);
-
 	Serial.println(F("TFT LCD test"));
 
 #ifdef USE_ADAFRUIT_SHIELD_PINOUT
@@ -91,7 +90,6 @@ void setup() {
 	testFillScreen();
 	tft.fillRect(0, 200, 400, 60, YELLOW);
 	tft.fillRect(0, 260, 400, 60, BLUE);
-
 }
 
 void loop() {
